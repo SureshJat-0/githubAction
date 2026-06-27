@@ -12,18 +12,16 @@ jobs:
       ubuntu-latest
     
     steps:
-      - name: Repo clone | actions/checkout 
-        run: |
+      - run: |
           echo "Files before checkout : "
           ls
 
       - uses: actions/checkout@v4
-        run: |
+      - run: |
           echo "Files after checkout : "
           ls
           
-      - name: Specific node version | actions/setup-noe with
-        run: |
+      - run: |
           echo "Node version before setup : "
           node -v
 
@@ -31,7 +29,7 @@ jobs:
         with:
           node-version: 24
       
-        run: |
+      - run: |
           echo "Node version after setup : "
           node -v
           npm -v
