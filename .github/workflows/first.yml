@@ -1,16 +1,33 @@
-name: CI CD Learning
+name: CI CD | GitHub actions
 
 on:
   push
 
 jobs:
-  hello:
-    runs-on: ubuntu-latest
+  demo:
+    runs-on:
+      ubuntu-latest
     
     steps:
-      - name: Run some steps
-        run: |
-          echo "My name is Suresh"
-          echo "Learning GitHub actions"
-          pwd
+      - run: |
+          echo "Files before checkout : "
+          ls
+
+      - uses: actions/checkout@v4
+      - run: |
+          echo: "Files after checkout : "
+          ls
+      
+      - run: |
+          echo: "Node version before setup : "
           node -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      
+      - run: |
+          echo: "Node version after setup : "
+          node -v
+          npm -v
+      
