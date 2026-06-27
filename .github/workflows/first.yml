@@ -3,7 +3,7 @@ name: CI CD Learning
 on:
   push
 
-job:
+jobs:
   hello:
     run-on: ubuntu-latest
     
