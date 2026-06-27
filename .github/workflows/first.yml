@@ -1,0 +1,16 @@
+name: CI CD Learning
+
+on:
+  push
+
+job:
+  hello:
+    run-on: ubuntu-latest
+    
+    steps:
+      - name: Run some steps
+        run: |
+          echo "My name is Suresh"
+          echo "Learning GitHub actions"
+          pwd
+          node -v
