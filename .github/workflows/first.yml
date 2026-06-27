@@ -6,31 +6,48 @@ on:
       - main
   workflow_dispatch:
 
+# jobs:
+#   demo:
+#     runs-on:
+#       ubuntu-latest
+    
+#     steps:
+#       - run: |
+#           echo "Files before checkout : "
+#           ls
+
+#       - uses: actions/checkout@v4
+#       - run: |
+#           echo "Files after checkout : "
+#           ls
+
+#       - run: |
+#           echo "Node version before setup : "
+#           node -v
+
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 24
+      
+#       - run: |
+#           echo "Node version after setup : "
+#           node -v
+#           npm -v
+
 jobs:
-  demo:
+  first:
     runs-on:
       ubuntu-latest
-    
     steps:
-      - run: |
-          echo "Files before checkout : "
-          ls
-
-      - uses: actions/checkout@v4
-      - run: |
-          echo "Files after checkout : "
-          ls
-          
-      - run: |
-          echo "Node version before setup : "
-          node -v
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-      
-      - run: |
-          echo "Node version after setup : "
-          node -v
-          npm -v
-      
+      - name: first jobs
+        run: echo "This is first job"
+  
+  second:
+    # waits for the first job to complete
+    # if first job fails the second job never starts
+    needs: first 
+    runs-on:
+      ubuntu-latest
+    steps:
+      - name: second job
+        run: echo "This is second job"
