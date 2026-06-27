@@ -17,16 +17,17 @@ jobs:
           echo "Files before checkout : "
           ls
 
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         run: |
           echo "Files after checkout : "
           ls
+          
       - name: Specific node version | actions/setup-noe with
         run: |
           echo "Node version before setup : "
           node -v
 
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
       
