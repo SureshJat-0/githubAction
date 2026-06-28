@@ -147,7 +147,7 @@ jobs:
       - run: echo "${{ steps.node.outputs.version }}"
   second:
     needs: first
-    if: inputs.runTests == true
+    if: ${{ inputs.runTests }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "version ${{ needs.first.outputs.version }}"
