@@ -14,6 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: First step
-        run: echo "Env variable: $APP_NAME"
+        run: echo "Env variable $APP_NAME"
       - name: second step
-        run: echo "Secret: $APP_SECRET"
+        run: echo "Secret $APP_SECRET"
