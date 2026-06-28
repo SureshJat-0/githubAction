@@ -32,12 +32,30 @@ name: CI/CD
 on:
   push
 
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Running CI"
+#       - if: github.ref == 'refs/heads/main'
+#         run: echo "Deploying..."
+#       - if: always()
+#         run: echo "Finished"
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Running CI"
-      - if: github.ref == 'refs/heads/main'
-        run: echo "Deploying..."
-      - if: always()
-        run: echo "Finished"
+      - run: "Building..."
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: "Testing..."
+  
+  deploy:
+    needs: test
+    if: success() && github.ref == 'refs/heads/main'
+    steps:
+      - run: echo "deploying..."
