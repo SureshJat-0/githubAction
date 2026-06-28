@@ -136,6 +136,8 @@ on:
 jobs:
   first:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.node.outputs.version }}
     steps:
       - id: node
         run: |
@@ -143,4 +145,8 @@ jobs:
           echo "runTests: ${{ inputs.runTests }}"
           echo "version=v1.2.0" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.node.outputs.version }}"
-
+  second:
+    needs: first
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "version ${{ needs.first.outputs.version }}"
