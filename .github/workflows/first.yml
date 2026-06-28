@@ -1,10 +1,10 @@
-name: CI CD | GitHub actions
+# name: CI CD | GitHub actions
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
 # jobs:
 #   demo:
@@ -34,20 +34,20 @@ on:
 #           node -v
 #           npm -v
 
-jobs:
-  first:
-    runs-on:
-      ubuntu-latest
-    steps:
-      - name: first jobs
-        run: echo "This is first job"
+# jobs:
+#   first:
+#     runs-on:
+#       ubuntu-latest
+#     steps:
+#       - name: first jobs
+#         run: echo "This is first job"
   
-  second:
-    # waits for the first job to complete
-    # if first job fails the second job never starts
-    needs: first 
-    runs-on:
-      ubuntu-latest
-    steps:
-      - name: second job
-        run: echo "This is second job"
+#   second:
+#     # waits for the first job to complete
+#     # if first job fails the second job never starts
+#     needs: first 
+#     runs-on:
+#       ubuntu-latest
+#     steps:
+#       - name: second job
+#         run: echo "This is second job"

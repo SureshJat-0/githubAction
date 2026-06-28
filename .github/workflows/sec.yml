@@ -1,0 +1,19 @@
+name: CI CD | second lesson
+
+on:
+  push:
+  branches:
+    - main
+
+env:
+  APP_NAME: DEMO APP
+  APP_SECRET: ${{ secrets.APP_SECRET_VALUE}}
+
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step
+        run: echo "Env variable: $APP_NAME"
+      - name: second step
+        run: echo "Secret: $APP_SECRET"
