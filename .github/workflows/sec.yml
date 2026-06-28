@@ -17,3 +17,12 @@ jobs:
         run: echo "Env variable $APP_NAME"
       - name: second step
         run: echo "Secret $APP_SECRET"
+  second:
+    runs-on: ubuntu-latest
+    steps:
+      - name: expressions
+        run: |
+          echo ${{ github.actor }}
+          echo ${{ github.repository }}
+          echo ${{ github.ref_name }}
+          echo ${{ runner.os }}
