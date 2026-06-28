@@ -33,10 +33,11 @@ on:
   push
 
 jobs:
-  runs-on: ubuntu-latest
-
-  steps:
-    - run: echo "Running CI"
-
-      if: github.ref == 'refs/heads/main'
-      run: echo "Deploying..."
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running CI"
+      - if: github.ref == 'refs/heads/main'
+        run: echo "Deploying..."
+      - if: always()
+        run: echo "Finished"
