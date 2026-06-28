@@ -115,5 +115,6 @@ jobs:
   deploy:
     needs: test
     if: success() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
     steps:
       - run: echo "deploying..."
