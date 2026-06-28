@@ -137,7 +137,7 @@ jobs:
   first:
     runs-on: ubuntu-latest
     steps:
-      - id: 123
+      - name: Log inputs
         run: |
           echo "env: ${{ inputs.env }}"
           echo "runTests: ${{ inputs.runTests }}"
