@@ -141,6 +141,6 @@ jobs:
         run: |
           echo "env: ${{ inputs.env }}"
           echo "runTests: ${{ inputs.runTests }}"
-          echo "version:v1.2.0" >> $GITHUB_OUTPUT
+          echo "version=v1.2.0" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.node.outputs.version }}"
 
