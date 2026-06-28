@@ -138,7 +138,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.node.outputs.version }}
-      runTests: ${{ }}
     steps:
       - id: node
         run: |
