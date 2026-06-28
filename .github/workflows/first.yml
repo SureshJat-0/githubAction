@@ -1,10 +1,10 @@
-name: CI CD | GitHub actions
+# name: CI CD | GitHub actions
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
 # jobs:
 #   demo:
@@ -34,13 +34,13 @@ on:
 #           node -v
 #           npm -v
 
-jobs:
-  first:
-    runs-on:
-      ubuntu-latest
-    steps:
-      - name: first jobs
-        run: echo "This is first job"
+# jobs:
+#   first:
+#     runs-on:
+#       ubuntu-latest
+#     steps:
+#       - name: first jobs
+#         run: echo "This is first job"
   
 #   second:
 #     # waits for the first job to complete
@@ -51,3 +51,69 @@ jobs:
 #     steps:
 #       - name: second job
 #         run: echo "This is second job"
+
+
+
+
+# name: CI CD | second lesson
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# env:
+#   APP_NAME: DEMO APP
+#   APP_SECRET: ${{ secrets.APP_SECRET_VALUE}}
+
+# jobs:
+#   first:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: First step
+#         run: echo "Env variable $APP_NAME"
+#       - name: second step
+#         run: echo "Secret $APP_SECRET"
+#   second:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: expressions
+#         run: |
+#           echo ${{ github.actor }}
+#           echo ${{ github.repository }}
+#           echo ${{ github.ref_name }}
+#           echo ${{ runner.os }}
+
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Running CI"
+#       - if: github.ref == 'refs/heads/main'
+#         run: echo "Deploying..."
+#       - if: always()
+#         run: echo "Finished"
+
+name: CI/CD
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: "Building..."
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: "Testing..."
+  
+  deploy:
+    needs: test
+    if: success() && github.ref == 'refs/heads/main'
+    steps:
+      - run: echo "deploying..."
