@@ -95,26 +95,50 @@
 #       - if: always()
 #         run: echo "Finished"
 
-name: CI/CD
+# name: CI/CD
 
+# on:
+#   push
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Building..."
+  
+#   test:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Testing..."
+  
+#   deploy:
+#     needs: test
+#     if: success() && github.ref == 'refs/heads/main'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "deploying..."
+
+## Inputs and Outputs
+
+name: CI/CD | Inputs & Outputs
 on:
-  push
-
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+      runTests:
+        type: boolean
 jobs:
-  build:
+  first:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Building..."
-  
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Testing..."
-  
-  deploy:
-    needs: test
-    if: success() && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "deploying..."
+      - id: 123
+        run: |
+          echo "env: ${{ inputs.env }}"
+          echo "runTests: ${{ inputs.runTests }}"
+
