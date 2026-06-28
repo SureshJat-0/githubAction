@@ -2,8 +2,8 @@ name: CI CD | second lesson
 
 on:
   push:
-  branches:
-    - main
+    branches:
+      - main
 
 env:
   APP_NAME: DEMO APP
