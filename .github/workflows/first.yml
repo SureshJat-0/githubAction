@@ -104,13 +104,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: "Building..."
+      - run: echo "Building..."
   
   test:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: "Testing..."
+      - run: echo "Testing..."
   
   deploy:
     needs: test
