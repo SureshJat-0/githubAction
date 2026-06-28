@@ -38,5 +38,5 @@ jobs:
   steps:
     - run: echo "Running CI"
 
-    - if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main'
       run: echo "Deploying..."
