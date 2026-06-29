@@ -104,7 +104,7 @@
 
 # name: CI/CD
 # on:
-#   push
+#   push:
 
 # jobs:
 #   build:
@@ -164,7 +164,7 @@
 
 # name: CI/CD | Artifacts
 # on:
-#   push
+#   push:
 # jobs:
 #   build:
 #     runs-on: ubuntu-latest
@@ -196,15 +196,15 @@
 
 name: CI/CD | cache
 on:
-  push
+  push:
 jobs:
   cache:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - uses: actions/checkout@v4
       - id: cache-id
         uses: actions/cache@v4
         with:
