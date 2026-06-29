@@ -189,5 +189,5 @@ jobs:
       - run: |
           ls -R
           cat downloaded-reports/test.txt
-          cat download-reports/result.txt
+          cat downloaded-reports/result.txt
 
