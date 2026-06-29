@@ -1,5 +1,6 @@
-# name: CI CD | GitHub actions
+### Actions
 
+# name: CI CD | GitHub actions
 # on:
 #   push:
 #     branches:
@@ -34,6 +35,8 @@
 #           node -v
 #           npm -v
 
+### Sequential jobs
+
 # jobs:
 #   first:
 #     runs-on:
@@ -53,10 +56,9 @@
 #         run: echo "This is second job"
 
 
-
+### Env, secrets and contexts
 
 # name: CI CD | second lesson
-
 # on:
 #   push:
 #     branches:
@@ -85,6 +87,8 @@
 #           echo ${{ runner.os }}
 
 
+### If statement with functions
+
 # jobs:
 #   build:
 #     runs-on: ubuntu-latest
@@ -95,8 +99,10 @@
 #       - if: always()
 #         run: echo "Finished"
 
-# name: CI/CD
 
+### Practice test
+
+# name: CI/CD
 # on:
 #   push
 
@@ -119,35 +125,68 @@
 #     steps:
 #       - run: echo "deploying..."
 
-## Inputs and Outputs
 
-name: CI/CD | Inputs & Outputs
+### Inputs and Outputs
+
+# name: CI/CD | Inputs & Outputs
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       env:
+#         type: choice
+#         options:
+#           - dev
+#           - staging
+#           - prod
+#       runTests:
+#         type: boolean
+# jobs:
+#   first:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       version: ${{ steps.node.outputs.version }}
+#     steps:
+#       - id: node
+#         run: |
+#           echo "env: ${{ inputs.env }}"
+#           echo "runTests: ${{ inputs.runTests }}"
+#           echo "version=v1.2.0" >> $GITHUB_OUTPUT
+#       - run: echo "${{ steps.node.outputs.version }}"
+#   second:
+#     needs: first
+#     if: ${{ inputs.runTests }}
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "version ${{ needs.first.outputs.version }}"
+
+
+### Atrifacts
+
+name: CI/CD | Artifacts
 on:
-  workflow_dispatch:
-    inputs:
-      env:
-        type: choice
-        options:
-          - dev
-          - staging
-          - prod
-      runTests:
-        type: boolean
+  push
 jobs:
-  first:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.node.outputs.version }}
+
     steps:
-      - id: node
-        run: |
-          echo "env: ${{ inputs.env }}"
-          echo "runTests: ${{ inputs.runTests }}"
-          echo "version=v1.2.0" >> $GITHUB_OUTPUT
-      - run: echo "${{ steps.node.outputs.version }}"
-  second:
-    needs: first
-    if: ${{ inputs.runTests }}
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: /reports
+          
+  verify:
+    needs: build
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "version ${{ needs.first.outputs.version }}"
+      - uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: downloaded-reports
+      - run: |
+          ls -R
+          cat downloaded-reports/test.txt
+          cat download-reports/result.txt
+
