@@ -1,0 +1,23 @@
+{
+  "name": "firstcicd",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/SureshJat-0/githubAction#readme",
+  "bugs": {
+    "url": "https://github.com/SureshJat-0/githubAction/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SureshJat-0/githubAction.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

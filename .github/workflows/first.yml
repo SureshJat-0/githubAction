@@ -162,32 +162,58 @@
 
 ### Atrifacts
 
-name: CI/CD | Artifacts
+# name: CI/CD | Artifacts
+# on:
+#   push
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/upload-artifact@v4
+#         with:
+#           name: test-reports
+#           path: reports/
+#           retention-days: 2
+
+#   verify:
+#     needs: build
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/download-artifact@v4
+#         with:
+#           name: test-reports
+#           path: downloaded-reports
+#       - run: |
+#           ls -R
+#           cat downloaded-reports/test.txt
+#           cat downloaded-reports/result.txt
+
+
+### cache
+
+name: CI/CD | cache
 on:
   push
 jobs:
-  build:
+  cache:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/upload-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          name: test-reports
-          path: reports/
-          retention-days: 2
-
-  verify:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/download-artifact@v4
+          node-version: 24
+      - id: cache-id
+        uses: actions/cache@v4
         with:
-          name: test-reports
-          path: downloaded-reports
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
+      - run: echo "cache hit - ${{ steps.cache-id.outputs.cache-hit }}"
       - run: |
-          ls -R
-          cat downloaded-reports/test.txt
-          cat downloaded-reports/result.txt
-
+          npm install
+          npm test
+      
+      
