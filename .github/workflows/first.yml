@@ -249,5 +249,7 @@ on:
 jobs:
   call-workflow:
     uses: ./.github/workflows/reusable-test.yml
+    secrets:
+      app-secret: ${{ secrets.APP_SECRET_VALUE }}
     with:
       node-version: "24"

@@ -5,6 +5,9 @@ on:
       node-version:
         required: true
         type: string
+    secrets:
+      app-secret:
+        required: true
 
 jobs:
   reusable-job:
@@ -15,5 +18,6 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - run: |
+          echo "App secret: ${{ secrets.app-secret }}"
           npm install
           npm test
