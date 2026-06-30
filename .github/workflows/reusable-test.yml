@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       node-version:
-        require: true
+        required: true
         type: string
 
 jobs:
