@@ -194,27 +194,47 @@
 
 ### cache
 
-name: CI/CD | cache
+# name: CI/CD | cache
+# on:
+#   push:
+# jobs:
+#   cache:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: 24
+#       - id: cache-id
+#         uses: actions/cache@v4
+#         with:
+#           path: ~/.npm
+#           key: npm-${{ hashFiles('package-lock.json') }}
+#           restore-keys: |
+#             npm-
+#       - run: echo "cache hit - ${{ steps.cache-id.outputs.cache-hit }}"
+#       - run: |
+#           npm install
+#           npm test
+
+
+
+### Matrix
+
+name: CI/CD | Matrix
 on:
   push:
 jobs:
-  cache:
-    runs-on: ubuntu-latest
+  matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [22, 24]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
-      - id: cache-id
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            npm-
-      - run: echo "cache hit - ${{ steps.cache-id.outputs.cache-hit }}"
+          node-version: ${{ matrix.node-version }}
       - run: |
-          npm install
-          npm test
-      
-      
+          echo "${{ matrix.os }}, node-version: ${{ matrix.node-version }}"
+          node -v
