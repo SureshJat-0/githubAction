@@ -221,20 +221,33 @@
 
 ### Matrix
 
-name: CI/CD | Matrix
+# name: CI/CD | Matrix
+# on:
+#   push:
+# jobs:
+#   matrix:
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, windows-latest]
+#         node-version: [22, 24]
+#     runs-on: ${{ matrix.os }}
+#     steps:
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - run: |
+#           echo "${{ matrix.os }}, node-version: ${{ matrix.node-version }}"
+#           node -v
+
+
+
+### Reusable workflows
+
+name: CI/CD | Reusable workflows
 on:
   push:
 jobs:
-  matrix:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        node-version: [22, 24]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: |
-          echo "${{ matrix.os }}, node-version: ${{ matrix.node-version }}"
-          node -v
+  call-workflow:
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      node-version: "24"
