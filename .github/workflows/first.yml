@@ -266,5 +266,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-project
+      - id: setup
+        uses: ./.github/actions/setup-project
+        with:
+          node-version: 24
       - run: npm test
+      - run: echo ${{ steps.setup.outputs.node-version }}
