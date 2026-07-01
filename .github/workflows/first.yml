@@ -243,13 +243,28 @@
 
 ### Reusable workflows
 
-name: CI/CD | Reusable workflows
+# name: CI/CD | Reusable workflows
+# on:
+#   push:
+# jobs:
+#   call-workflow:
+#     uses: ./.github/workflows/reusable-test.yml
+#     secrets:
+#       app-secret: ${{ secrets.APP_SECRET_VALUE }}
+#     with:
+#       node-version: "24"
+
+
+
+### Composite actions
+
+name: CD/CD | Composite actions
 on:
   push:
 jobs:
-  call-workflow:
-    uses: ./.github/workflows/reusable-test.yml
-    secrets:
-      app-secret: ${{ secrets.APP_SECRET_VALUE }}
-    with:
-      node-version: "24"
+  composite-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+      - run: npm test

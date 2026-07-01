@@ -1,0 +1,12 @@
+name: Setup Project
+
+description: Install node and dependancies
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
+    - run: npm install
+      shell: bash
